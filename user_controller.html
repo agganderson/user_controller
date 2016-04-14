@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang='en' ng-app="usersApp">
+<head>
+	<title>Users</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<script type="text/javascript">
+		var usersAppModule = angular.module('usersApp', []);
+		usersAppModule.controller('usersController', function(){
+			this.users = [
+					{first_name: 'Michael', last_name: 'Bekkers', language: 'Javascript'},
+				];
+			this.addUser = function(){
+				this.users.push(this.newUser);
+				this.newUser = {};
+			};
+			this.deleteUser = function(user){
+				this.users.splice(this.users.indexOf(user), 1);
+			};
+		});
+	</script>
+</head>
+<body>
+	<div ng-controller="usersController as usersCtrl">
+		<h2>Add a User:</h2>
+		<form class="form-horizontal" role="form">
+		  <div class="form-group">
+		    <label class="control-label col-sm-2" for="first_name">First Name:</label>
+		    <div class="col-sm-10">
+		      <input type="text" ng-model="usersCtrl.newUser.first_name">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="control-label col-sm-2" for="last_name">Last Name:</label>
+		    <div class="col-sm-10">
+		      <input type="text" ng-model="usersCtrl.newUser.last_name">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <label class="control-label col-sm-2" for="language">Language:</label>
+		    <div class="col-sm-10">
+		      <input type="text" ng-model="usersCtrl.newUser.language">
+		    </div>
+		  </div>
+		  <div class="form-group">
+		    <div class="col-sm-offset-2 col-sm-10">
+		      <button type="submit" class="btn btn-default" ng-click="usersCtrl.addUser()">Create User</button>
+		    </div>
+		  </div>
+		</form>
+		<table class="table table-striped">
+		    <thead>
+		      <tr>
+		        <th>First Name</th>
+		        <th>Last Name</th>
+		        <th>Language</th>
+		        <th>Actions</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <tr ng-repeat="user in usersCtrl.users">
+		        <td> {{ user.first_name }} </td>
+		        <td> {{ user.last_name }} </td>
+		        <td> {{ user.language }} </td>
+		        <td><button type="submit" class="btn btn-danger btn-sm" ng-click="usersCtrl.deleteUser(user)">Delete User</button></td>
+		      </tr>
+		    </tbody>
+		 </table>
+	</div>
+</body>
+</html>
